@@ -1,0 +1,41 @@
+/* GhostHub - Main Stylesheet */
+
+/* Import modular CSS files */
+@import url('base.css');
+@import url('layout.css');
+@import url('components.css');
+@import url('media.css');
+@import url('chat.css');
+@import url('responsive.css');
+
+/* Fix for header visibility on mobile */
+.app-header {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Fix for category spacing */
+.category-header {
+    margin-top: 10px;
+}
+
+/* Fix for Add Category button */
+.action-buttons {
+    display: flex !important;
+}
+
+.add-category-btn {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Fix for chat pushing content up */
+@media (max-width: 768px) {
+    /* Ensure category header stays visible when chat is open */
+    .chat-container.expanded ~ .container .category-header {
+        position: relative;
+        z-index: 50;
+    }
+}

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GhostHub</title>
+    
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="/static/css/styles.css">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#2d3250">
+    <meta name="description" content="A lightweight, modular media server with TikTok-style swipe interface">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="GhostHub">
+    
+    <!-- PWA Icons -->
+    <link rel="icon" href="/static/icons/Ghosthub1024.png" type="image/png">
+    <link rel="apple-touch-icon" href="/static/icons/Ghosthub180.png">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/static/manifest.json">
+</head>
+<body>
+<div class="app-header">
+    <!-- Status display on the left -->
+    <div id="sync-status-display" class="sync-status-display">Sync Mode: OFF</div>
+    
+    <!-- App title in center -->
+    <div class="header-title">
+        <img src="/static/icons/Ghosthub192.png" alt="GhostHub" class="header-logo">
+        GhostHub
+    </div>
+    
+    <!-- GitHub link -->
+    <div class="header-github">
+        <a href="https://github.com/BleedingXiko/GhostHub" target="_blank" rel="noopener">
+            <svg height="24" width="24" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+            </svg>
+        </a>
+    </div>
+    
+    <!-- Sync toggle on right -->
+    <div id="sync-toggle-container" class="sync-toggle-container">
+        <button id="sync-toggle-btn" class="sync-toggle-btn">Sync</button>
+    </div>
+</div>
+<!-- TikTok-style Media Viewer Container -->
+<div id="tiktok-container" class="hidden">
+    <!-- Loading Spinner -->
+    <div class="spinner-container">
+        <div class="spinner"></div>
+    </div>
+    
+    <!-- Media elements will be dynamically inserted here -->
+    
+    <!-- Media Info Overlay -->
+    <div class="media-info-overlay">
+        <div class="filename"></div>
+        <div class="metadata">
+            <span class="dimensions">1920 x 1080</span>
+            <span class="size">2.4 MB</span>
+            <span class="date">2023-04-19</span>
+        </div>
+    </div>
+    
+    <!-- Back Button -->
+    <a href="#" id="permanent-back-button" class="back-button">
+        ←
+        <span id="back-button-spinner" style="display: none;"></span>
+    </a>
+    
+    <script>
+        // Back button handler
+        document.addEventListener('DOMContentLoaded', function() {
+            const backButton = document.getElementById('permanent-back-button');
+            
+            function handleAction(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log("Back button action - reloading page");
+                // Show spinner
+                const spinner = document.getElementById('back-button-spinner');
+                if (spinner) spinner.style.display = 'inline-block';
+                // Force reload
+                window.location.reload(true); 
+            }
+
+            // Attach to both events
+            backButton.addEventListener('click', handleAction);
+            backButton.addEventListener('touchend', handleAction); 
+        });
+    </script>
+</div>
+
+<!-- Main Container -->
+<div class="container">
+    <h1 class="hidden-title">GhostHub</h1>
+    
+    <!-- Category View -->
+    <div id="categoryView">
+        <div class="category-header">
+            <h2>Categories</h2>
+            <div class="action-buttons">
+                <a href="/add_category" class="add-category-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 4V20M4 12H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    Add Category
+                </a>
+            </div>
+        </div>
+        <div class="category-list" id="categoryList">
+            <!-- Categories will be loaded here -->
+        </div>
+    </div>
+    
+    <!-- Media View -->
+    <div id="mediaView" class="hidden">
+        <!-- Media view elements -->
+    </div>
+</div>
+
+<!-- Swipe Indicators -->
+<div class="swipe-indicator up">↑</div>
+<div class="swipe-indicator down">↓</div>
+
+<!-- Chat Container -->
+<div class="chat-container collapsed" id="chat-container">
+    <div class="chat-header" id="chat-header">
+        <div class="latest-message" id="latest-message">Chat</div>
+        <button class="chat-toggle" id="chat-toggle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+        </button>
+    </div>
+    <div class="chat-body" id="chat-body">
+        <div class="chat-messages" id="chat-messages">
+            <!-- Chat messages will be loaded here -->
+        </div>
+        <form class="chat-form" id="chat-form">
+            <input type="text" class="chat-input" id="chat-input" placeholder="Type a message...">
+            <button type="submit" class="chat-send" id="chat-send">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="/static/js/utils/SocketIoMin.js"></script>
+<script type="module" src="/static/js/main.js"></script>
+<script src="/static/js/pwa-installer.js"></script>
+</body>
+</html>
