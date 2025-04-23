@@ -11,8 +11,9 @@ Runs as a **Python script**, **one-click Windows `.exe`**, or **Docker container
 ### Desktop View (Use arrow keys to navigate inside categories)
 ![GhostHub Desktop Preview](preview.png)
 
-<div style="text-align: center;">
+<div style="text-align: center; display: flex; justify-content: center; gap: 20px;">
   <img src="preview-mobile.gif" alt="GhostHub Mobile Preview" width="300" />
+  <img src="preview-mobile-2.gif" alt="GhostHub Mobile Preview 2" width="300" />
 </div>
 
 ---
