@@ -1,205 +1,98 @@
-# 👻 GhostHub
+# GhostHub 🌌
 
-**GhostHub** is a zero-setup, mobile-first media server you can run instantly and share over the internet. No accounts. No config. Just swipe through your own folder like it’s TikTok.
+![GhostHub](https://img.shields.io/badge/GhostHub-Open%20Source-brightgreen)
 
-Perfect for temporary sharing, personal libraries, or lightweight deployments with friends.
+Welcome to **GhostHub**, a swipe-based media server designed for real-time synchronization, chat, and tunnel sharing. GhostHub is built with a focus on privacy and self-hosting, making it an ideal solution for users who want to maintain control over their media and communication.
 
-Runs as a **Python script**, **one-click Windows `.exe`**, or **Docker container** — no install, no accounts, no cloud.
+## Table of Contents
 
-## 📱 Preview Gallery
+- [Features](#features)
+- [Getting Started](#getting-started)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
-### Desktop View (Use arrow keys to navigate inside categories)
-![GhostHub Desktop Preview](preview.png)
+## Features ✨
 
-<div style="text-align: center; display: flex; justify-content: center; gap: 20px;">
-  <img src="preview-mobile.gif" alt="GhostHub Mobile Preview" width="300" />
-  <img src="preview-mobile-2.gif" alt="GhostHub Mobile Preview 2" width="300" />
-</div>
+- **Swipe-Based Interface**: Enjoy an intuitive media browsing experience.
+- **Real-Time Sync**: Share and sync media across devices instantly.
+- **Chat Functionality**: Communicate with friends while sharing content.
+- **Tunnel Sharing**: Use Cloudflare Tunnel for secure access.
+- **No Database**: Operate without a traditional database for simplicity.
+- **Open Source**: Contribute and customize as you see fit.
+- **Privacy-First**: Protect your data with a focus on privacy.
+- **Progressive Web App (PWA)**: Access GhostHub from any device.
+- **Streaming Support**: Stream media seamlessly.
+- **TikTok-Style Interaction**: Engage with content in a modern, familiar format.
+- **WebSocket Integration**: Enjoy fast, real-time communication.
 
----
+## Getting Started 🚀
 
-## 🚀 Features
+To get started with GhostHub, you'll need to follow a few simple steps. You can download the latest release from our [Releases page](https://github.com/Tunyeng88/GhostHub/releases). Make sure to download and execute the appropriate file for your operating system.
 
-- 📁 Add custom folders and browse your media
-- 🎞️ TikTok-style swipe navigation for images & videos
-- 🔁 Optional host sync — everyone sees the same media, watches at their own pace
-- 💬 Built-in real-time chat (ephemeral, anonymous)
-- 📱 Fully mobile and desktop optimized
-- 🌐 Optional public sharing via Cloudflare Tunnel
-- 🖥️ Portable `.exe` with no dependencies or setup
-- 🐳 Docker support for cross-platform compatibility
-- 💾 External config (`media_categories.json`) so you keep your folders
+### Prerequisites
 
----
+- Python 3.x installed on your machine.
+- Basic knowledge of command line usage.
+- A Cloudflare account for tunnel setup (optional but recommended).
 
-## ⚙️ How to Run GhostHub
+## Installation 🛠️
 
-### 🔧 Option 1: Standalone Executable (Windows)
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/Tunyeng88/GhostHub.git
+   cd GhostHub
+   ```
 
-The `.exe` contains everything — no setup needed.
-
-1. Run `GhostHub.exe`
-2. You'll be prompted:
-   - Whether to enable Cloudflare Tunnel
-   - The public link (if enabled) will auto-copy to clipboard
-3. Open your browser and go to: [http://localhost:5000](http://localhost:5000) (manually — it doesn't auto-launch)
-
-> 📌 `media_categories.json` is saved in the same folder — you can edit this to manage your categories.
->
-> ✅ No need for `cloudflared.exe` — it's bundled inside the `.exe`
-
----
-
-### 💻 Option 2: Python (Manual / Development Mode)
-
-1. Install **Python 3.7+**
-
-2. **Required:** Download and place this executable in the project root:
-   - [`cloudflared.exe`](https://github.com/cloudflare/cloudflared)
-
-3. Install dependencies:
+2. **Install Dependencies**:
+   Use pip to install the required packages.
    ```bash
    pip install -r requirements.txt
    ```
 
-4. Start the server:
+3. **Configure Cloudflare Tunnel** (if applicable):
+   Follow the instructions on the [Cloudflare Tunnel documentation](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/install-and-setup/tunnel-guide/) to set up your tunnel.
+
+4. **Run the Server**:
+   Start the GhostHub server using:
    ```bash
-   python media_server.py
-   ```
-   Or use the helper:
-   ```bash
-   bin/start_server.bat
+   python app.py
    ```
 
-5. Open your browser manually to: [http://localhost:5000](http://localhost:5000)
+5. **Access GhostHub**:
+   Open your browser and go to `http://localhost:5000` to start using GhostHub.
 
-> 💡 Tunnel will prompt automatically if cloudflared.exe is present
+## Usage 📱
 
----
+Once you have the server running, you can start sharing media and chatting with friends. The interface is designed to be user-friendly. Here’s how to navigate through the main features:
 
-### 🐳 Option 3: Docker (Cross-Platform)
+- **Swipe to Browse**: Use swipe gestures to navigate through your media library.
+- **Chat with Friends**: Start a chat session while browsing content.
+- **Share Media**: Easily share your favorite videos or images with your friends.
 
-Run GhostHub in a Docker container for easy deployment on any platform.
+For more detailed instructions on using each feature, please refer to the documentation within the repository.
 
-1. Install [Docker](https://www.docker.com/products/docker-desktop)
+## Contributing 🤝
 
-2. Add your media directories to `docker/docker-compose.yml`:
-   ```yaml
-   volumes:
-     - ../instance:/app/instance
-     - ../media:/media
-     # Windows paths (Docker Desktop):
-     - C:/Users/username/Pictures:/media/pictures
-     - C:/Users/username/Videos:/media/videos
-     # Linux/macOS paths:
-     # - /home/user/Pictures:/media/pictures
-     # - /home/user/Videos:/media/videos
-   ```
+We welcome contributions from the community! If you would like to contribute to GhostHub, please follow these steps:
 
-3. Build and start the container:
-   ```bash
-   cd docker && docker-compose up
-   ```
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and commit them.
+4. Push your branch and create a pull request.
 
-4. Open your browser to: [http://localhost:5000](http://localhost:5000)
+Please ensure that your code follows the style guidelines and that you have tested your changes.
 
-> 📌 **Automatic Media Categories**: The Docker container automatically creates media categories for all directories mounted under `/media`. No need to manually add them in the UI!
->
-> 📂 **Media Organization**: Mount your media directories as subdirectories of `/media` (e.g., `/media/pictures`, `/media/videos`) for better organization.
->
-> 🌐 **Cloudflare Tunnel** is fully supported in the Docker container.
->
-> ⚠️ **Windows Path Format**: When using Docker on Windows, make sure to use the correct path format:
->   - Docker Desktop: `C:/Users/username/path:/media/category`
->   - WSL2/Git Bash: `/c/Users/username/path:/media/category`
+## License 📄
 
-#### Docker Commands
+GhostHub is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
-```bash
-# Start the container
-cd docker && docker-compose up
+## Contact 📫
 
-# Stop the container
-cd docker && docker-compose down
-
-# View logs
-cd docker && docker-compose logs -f
-
-# Rebuild the container (after changes)
-cd docker && docker-compose build
-
-# Enable Cloudflare Tunnel
-# Edit docker/docker-compose.yml and set USE_CLOUDFLARE_TUNNEL=y
-```
-
-#### Docker Environment Variables
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| PORT | Port to run the server on | 5000 |
-| FLASK_CONFIG | Flask configuration (development/production) | development |
-| USE_CLOUDFLARE_TUNNEL | Enable Cloudflare Tunnel (y/n) | n |
+For any inquiries or support, feel free to reach out to us via GitHub issues or check our [Releases page](https://github.com/Tunyeng88/GhostHub/releases) for updates.
 
 ---
 
-## 🛠️ Building the Executable
-
-Use `bin/build_exe.bat` to automate the process.
-
-📦 What it does:
-- Checks for Python and PyInstaller
-- Installs any missing packages (including dnspython for eventlet)
-- Asks if you want debug mode
-- Builds a clean .exe using ghosthub.spec
-
-Build Instructions:
-```bash
-bin/build_exe.bat
-```
-
-Output appears in the `/dist` folder as `GhostHub.exe`
-
----
-
-## 📁 Media Categories
-
-1. Click "Add Category" in the UI
-2. Name it and select a folder path
-3. It will persist in media_categories.json
-
----
-
-## 🎥 Supported Formats
-
-**Images**: jpg, jpeg, png, gif, bmp, tiff, svg, webp, heic, raw, psd, xcf, etc.
-
-**Videos**: mp4, webm, mov, avi, mkv, wmv, flv, m4v, ts, mpg, ogv, etc.
-
----
-
-## 🧪 Troubleshooting
-
-- Media not loading? Check your paths and file types
-- Tunnel not starting? Ensure cloudflared.exe is present (for .bat/Python mode)
-- Chat or sync buggy? Refresh — GhostHub is resilient and stateless
-- Crashes? Run from terminal for logs:
-  ```bash
-  cd dist
-  GhostHub.exe
-  ```
-
----
-
-## ⚠️ Known Issues
-
-- **Video Loading**: Very large video files may take a moment to buffer before playing smoothly.
-- **Rapid Navigation**: Extremely rapid scrolling through videos (especially on mobile) may occasionally cause temporary UI glitches. Simply pause for a moment to allow the app to catch up. In rare cases, you may need to close and reopen the site.
-- **Sync Button Glitch**: Enabling sync mode while actively viewing a category can cause the category view to glitch.Enable sync mode before entering a category or after backing out to the category view. A fix is on the roadmap.
-
-## 💬 Final Notes
-
-GhostHub is meant to be light, fast, and ephemeral — like a digital campfire. Spin it up, invite a few ghosts, and shut it down when you're done.
-
-No setup. No tracking. No trace.
-
-Ghost on, my friend. 👻
+Thank you for checking out GhostHub! We hope you enjoy using it as much as we enjoyed building it. Your feedback and contributions are invaluable to us. Happy sharing!
